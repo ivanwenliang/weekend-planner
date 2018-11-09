@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+      <title>Insert Lease Agreement details</title>
+   </head>
+   <body>
+   <form method="post" action="procLeaseInput.php">
+  <fieldset>
+        	<legend style="color:blue;font-size:30px">LeaseID</legend>
+            <label for="title">LeaseID:</label>
+        	<input type="text" name="leaseid" id="leaseid">
+			<label for="title">First Name:</label>
+        	<input type="text" name="name" id="name">
+			<label for="title">Supervisor ID:</label>
+        	<input type="text" name="sid" id="sid">
+			<label for="title">9 Digit Phone Number:</label>
+        	<input type="text" name="phone" id="phone">
+			<label for="title">Rental Property Number:</label>
+        	<input type="text" name="num" id="num">
+        </fieldset>
+		</fieldset>
+			<legend style="color:blue;font-size:30px">Insert Start Date of Lease in Format (DD-MON-YYYY)</legend>
+            <label for="title">Start Date:</label>
+        	<input type="text" name="startdate" id="startdate">
+		</fieldset>
+        <fieldset>
+        	<legend style="color:blue;font-size:30px">Length of Lease Agreement in Months</legend>
+            <input type="radio" name="length" id="6" value="6">
+            <label for="6">6</label>
+			<input type="radio" name="length" id="7" value="7">
+            <label for="7">7</label>
+			<input type="radio" name="length" id="8" value="8">
+            <label for="8">8</label>
+			<input type="radio" name="length" id="9" value="9">
+            <label for="9">9</label>
+			<input type="radio" name="length" id="10" value="10">
+            <label for="10">10</label>
+			<input type="radio" name="length" id="11" value="11">
+            <label for="11">11</label>
+			<input type="radio" name="length" id="12" value="12">
+            <label for="12">12</label>
+        </fieldset>
+		</fieldset>
+			<legend style="color:blue;font-size:30px">Rent</legend>
+            <label for="title">Rent Amount:</label>
+        	<input type="text" name="rent" id="rent">
+		</fieldset>
+
+            <input type="submit" value="Submit">
+        	<input type="reset" value="Reset">
+ </form>
+   </body>
+</html>
