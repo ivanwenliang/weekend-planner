@@ -1,14 +1,19 @@
 from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
+import mysql.connector
 
 def main():
+
+    mydb = mysql.connector.connect(host='localhost', user='root', password='', database='')
 
     url_queue = 'https://www.eventbrite.com/d/ca--san-jose/events/'
     html_tag_queue = []
     event_info_dict = {}
 
     populateHtmlTagQueue(html_tag_queue)
-    scrapeToTextFile(url_queue, html_tag_queue, event_info_dict)
+    scrapeToTextFile(url_queue, html_tag_queue, event_info_dict,mydb)
+
+    mydb.close()
 
 def populateHtmlTagQueue(html_tag_queue):
 	html_tag_queue.append({"class": "eds-media-card-content__content"})
@@ -18,7 +23,7 @@ def populateHtmlTagQueue(html_tag_queue):
 	html_tag_queue.append({"class": "card-text--truncated__one"})
 	html_tag_queue.append({"class": "eds-media-card-content__sub-content"})
 
-def scrapeToTextFile(url_queue, html_tag_queue, event_info_dict):
+def scrapeToTextFile(url_queue, html_tag_queue, event_info_dict,database):
  
     #opens a conenction and grabs the webpage
     uClient = uReq(url_queue)
@@ -46,11 +51,13 @@ def scrapeToTextFile(url_queue, html_tag_queue, event_info_dict):
 
         month_container = container.findAll("p", html_tag_queue[1])
         if len(month_container) != 0:
-            event_info_dict["event_month"] = month_container[0].text
+            event_month = month_container[0].text
 
         day_container = container.findAll("p", html_tag_queue[2])
         if len(day_container) != 0:
-        	event_info_dict["event_day"] = day_container[0].text
+        	event_day = day_container[0].text
+
+        event_info_dict["event_date"] = str(event_month + " " + event_day)
 
         location_conatiner = container.findAll("div", html_tag_queue[3])
         if len(location_conatiner) != 0:
@@ -62,11 +69,16 @@ def scrapeToTextFile(url_queue, html_tag_queue, event_info_dict):
             event_time = event_time[2]
             event_info_dict["event_time"] = event_time[0:8]
         
-        print(event_info_dict["event_name"])
-        #populateEventDb(event_info_dict)
+        populateEventDb(event_info_dict,database)
         event_info_dict.clear
 
-#def populateEventDb(event_info_dict):
-	#TODO: Learn mySQLconnector library
+def populateEventDb(event_info_dict,database):
+	
+	mycursor = mydb.cursor()
+	sqlFormula = "INSERT INTO table (event_name,event_date,event_time,event_location) VALUES (%s,%s,%s,%s)"
+	event_info = (event_info_dict["event_name"],event_info_dict["event_date"],
+		event_info_dict["event_time"],event_info_dict["event_location"])
+
+	mycursor.execute(sqlFormula,event_info)
 
 main()
