@@ -11,7 +11,7 @@ CREATE TABLE User (uemail INT, fname varchar(20), lname varchar(20), PRIMARY KEY
 CREATE TABLE Goingto (eventid INT, userid INT, goingdate date, PRIMARY KEY(eventid,userid),
 FOREIGN KEY (eventid) REFERENCES Events (eventid),
 FOREIGN KEY (userid) REFERENCES User (userid) );
-CREATE TABLE Friends (userid INT,friendid num(10),
+CREATE TABLE Friends (userid INT,friendid INT(10),
 PRIMARY KEY (userid,friendid),
 FOREIGN KEY (userid) REFERENCES User (userid),
 FOREIGN KEY (friendid) REFERENCES User (userid));
