@@ -6,28 +6,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-     $eventid = $_POST['eventid'];
+    	 $eventid = $_POST['eventid'];
 
 	 $attenddate = $_POST['attenddate'];
 
 	 $length = $_POST['length'];
+	
+	 $review = %_POST['review'];
 
 
 
 
-	insertReviewInputIntoDB($eventid,$attenddate,$length);
+	insertReviewInputIntoDB($eventid,$attenddate,$length,$review);
 
 
 }
 
-function insertReviewInputIntoDB($eventid,$attenddate,$length){
+function insertReviewInputIntoDB($eventid,$attenddate,$length,$review){
 	//connect to your database. Type in your username, password and the DB path
 	$conn= mysql_connect('servername','username', 'password');
 	if(!$conn) {
 	     print "<br> connection failed:";
         exit;
 	}
-	$query =  "Insert Into Review(eventid,attenddate,length) values($eventid,$attenddate,$length)");
+	$query =  "Insert Into Review(eventid,attenddate,length,review) values($eventid,$attenddate,$length,$review)");
 
 
 
