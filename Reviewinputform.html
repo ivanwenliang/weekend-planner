@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -148,4 +149,45 @@
     <!-- Extra scripts -->
     <script src="js/clean-blog.min.js"></script>
   </body>
+=======
+<head>
+	<meta charset="utf-8"/>
+      <title>Reviews</title>
+   </head>
+   <body>
+   <form method="post" action="procReviewInput.php">
+  <fieldset>
+            <label for="title">Name of Event:</label>
+        	<input type="text" name="eventid" id="eventid">
+        </fieldset>
+		</fieldset>
+			<legend style="color:blue;font-size:30px">When did you attend the event? (DD-MON-YYYY)</legend>
+            <label for="title">Start Date:</label>
+        	<input type="text" name="attenddate" id="attenddate">
+		</fieldset>
+        <fieldset>
+        	<legend style="color:blue;font-size:30px">Rating</legend>
+            <input type="radio" name="length" id="0" value="0">
+            <label for="0">0</label>
+			<input type="radio" name="length" id="1" value="1">
+            <label for="1">1</label>
+			<input type="radio" name="length" id="2" value="2">
+            <label for="2">2</label>
+			<input type="radio" name="length" id="3" value="3">
+            <label for="3">3</label>
+			<input type="radio" name="length" id="4" value="4">
+            <label for="4">4</label>
+			<input type="radio" name="length" id="5" value="5">
+            <label for="5">5</label>
+        </fieldset>
+				<fieldset>
+				 <legend style="color:blue;font-size:30px" >Review</legend>
+				 <textarea name="review" id="review" rows="10" cols="50"></textarea>
+			 </fieldset>
+
+            <input type="submit" value="Submit">
+        	<input type="reset" value="Reset">
+ </form>
+   </body>
+>>>>>>> 20d7be168f0cb3569e094b12029b9e052289812b
 </html>
