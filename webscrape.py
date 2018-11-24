@@ -77,7 +77,7 @@ def scrapeToTextFile(url_queue, html_tag_queue, event_info_dict,database):
 		        event_info_dict["event_time"] = event_time[0:8]
 
 		event_info_dict["event_id"] = event_id_counter
-		event_id_counter++
+		event_id_counter = event_id_counter + 1
 
 		populateEventDb(event_info_dict,database)
 		event_info_dict.clear
