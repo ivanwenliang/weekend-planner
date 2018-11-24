@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 function insertReviewInputIntoDB($eventid,$attenddate,$length,$review){
 	//connect to your database. Type in your username, password and the DB path
-	$conn= mysql_connect('localhost','root', 'Eng!dc*18');
+	$conn= mysql_connect('localhost','root', 'password');
   if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
   }
