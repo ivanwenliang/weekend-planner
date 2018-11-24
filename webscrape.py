@@ -2,12 +2,15 @@ from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
 import mysql.connector
 
+#global variable to keep track of max event id
+event_id_counter = 1
+
 def main():
 
     mydb = mysql.connector.connect(host='127.0.0.1', user='root', password='gosantaclara', database='planner')
     mydb.autocommit = True
 
-    url_queue = 'https://www.eventbrite.com/d/ca--san-jose/events/'
+    url_queue = ['https://www.eventbrite.com/d/ca--san-jose/events/']
     html_tag_queue = []
     event_info_dict = {}
 
@@ -73,6 +76,9 @@ def scrapeToTextFile(url_queue, html_tag_queue, event_info_dict,database):
 		        event_time = event_time[2]
 		        event_info_dict["event_time"] = event_time[0:8]
 
+		event_info_dict["event_id"] = event_id_counter
+		event_id_counter++
+
 		populateEventDb(event_info_dict,database)
 		event_info_dict.clear
 	html_tag_queue.pop[0:5]
@@ -81,8 +87,8 @@ def scrapeToTextFile(url_queue, html_tag_queue, event_info_dict,database):
 def populateEventDb(event_info_dict,database):
 	
 	mycursor = database.cursor()
-	sqlFormula = "INSERT INTO events (ename,location,eventdate,starttime) VALUES (%s,%s,%s,%s)"
-	event_info = (event_info_dict["event_name"],event_info_dict["event_location"],
+	sqlFormula = "INSERT INTO events (ename,location,eventdate,starttime) VALUES (%s,%s,%s,%s,%s)"
+	event_info = (event_info_dict["event_id"],event_info_dict["event_name"],event_info_dict["event_location"],
 		event_info_dict["event_date"],event_info_dict["event_time"])
 
 	mycursor.execute(sqlFormula,event_info)
