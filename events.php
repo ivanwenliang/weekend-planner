@@ -22,7 +22,7 @@
 
 		<!-- Link to stylesheet -->
 		<link href="style.css" rel="stylesheet">
-		<link href="css/clean-blog.min.css" rel="stylesheet">
+		<link href="css/clean-blog.css" rel="stylesheet">
 	</head>
 
 	<body>
@@ -60,14 +60,14 @@
 		</nav>
 
 		<!-- Page Header -->
-		<header class="masthead" style="background-image: url('img/login-bg.jpg')">
+		<header class="masthead" style="background-image: url('img/about-bg.jpg')">
 		  <div class="overlay"></div>
 		  <div class="container">
 		    <div class="row">
 		      <div class="col-lg-8 col-md-10 mx-auto">
 		        <div class="page-heading">
-		          <h1>Login</h1>
-		          <span class="subheading">Sign Into Your Account</span>
+		          <h1>Events</h1>
+		          <span class="subheading">A List of Events Near You</span>
 		        </div>
 		      </div>
 		    </div>
@@ -76,41 +76,82 @@
 
 		<!-- Below Navbar -->
 		<div class="container" style="margin-top:30px">
-			<div class="row justify-content-center">
-				<div class="col-lg-6 col-md-6 mx-auto">	
-					<form class="mx-auto">
-						<div class="form-row">
-							<div class="form-group col-sm-6">
-								<label for="inputEmail">Email</label>
-								<input type="email" class="form-control" id="inputEmail" placeholder="email@example.com">
-							</div>
+			<!-- <div class="row justify-content-center"> -->
 
-							<div class="form-group col-sm-6">
-								<label for="inputPassword">Password</label>
-								<input type="password" class="form-control" id="inputPassword" placeholder="Password">
-							</div>
 
-							<!-- <div class="form-group col-sm-12">
-								<label for=inputUsername">Username</label>
-								<div class="input-group">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="symbolAddon">@</span>
-									</div>
-									<input type="text" class="form-control" id="inputUsername" placeholder="Username">
-								</div>
-							</div> -->
+
+				<div class="col-sm-12" style="height: 400px; overflow-y: scroll;">
+					<!-- <h2 class="text-center">Event List</h2>
+					<p class="text-center text-muted mb-4">A list of events near you</p> -->
+
+					<?php
+
+					$servername = "127.0.0.1";
+
+					$username = "root";
+
+					$password = "";
+
+					$dbname = "planner";
+
+					// Create connection
+
+					$conn = new mysqli($servername, $username, $password, $dbname);
+					
+					$sql = "SELECT eventid, ename, location, eventdate FROM events";
+
+					if (mysqli_query($conn, $sql)) {
+
+					echo "";
+
+					} else {
+
+					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+
+					}	
+
+					$resultset = mysqli_query($conn, $sql) or die("Database error:" . mysqli_error($conn));
+
+					while($record = mysqli_fetch_assoc($resultset)) {
+					?>
+
+					<div class="card text-center mx-auto mb-4" style="max-width: 23rem; height: 350px;">
+						<div class="card-body events">
+							<h5 class="card-title"><?php echo $record['ename']; ?></h5>
+							<p class="card-text">Description of event</p>
+							<div class="card-text"><?php echo $record['location']; ?></div>
+							<div class="card-text"><?php echo $record['eventdate']; ?></div>
+							<a href="#" class="btn btn-primary">More details</a>
 						</div>
+						<!-- <div class="card-footer text-muted">
+							Found 2 hours ago
+						</div> -->
+					</div>
 
-						<div class="row justify-content-center mt-3">
-							<input class="btn btn-primary btn-lg" type="submit" value="Login" style="width: 15rem">
-						</div> 
-
-						<div class="row justify-content-center mt-3">
-							<a class="text-center mx-auto" href="register.html">Sign Up</a>
+					<!-- <div class="card text-center mx-auto mb-4" style="max-width: 23rem;">
+						<div class="card-body">
+							<h5 class="card-title">Event</h5>
+							<p class="card-text">Description of event</p>
+							<a href="#" class="btn btn-primary">More details</a>
 						</div>
-					</form>
+						<div class="card-footer text-muted">
+							Found 1 day ago
+						</div>
+					</div>
+
+					<div class="card text-center mx-auto mb-4" style="max-width: 23rem;">
+						<div class="card-body">
+							<h5 class="card-title">Event</h5>
+							<p class="card-text">Description of event</p>
+							<a href="#" class="btn btn-primary">More details</a>
+						</div>
+						<div class="card-footer text-muted">
+							Found 2 days ago
+						</div>
+					</div> -->
+					<?php } ?>
 				</div>
-			</div>			
+			<!-- </div> -->
 		</div>
 
 		<!-- Footer -->

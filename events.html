@@ -1,3 +1,6 @@
+<?php
+require_once("db_connect.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -38,7 +41,7 @@
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item">
-							<a class="nav-link" href="events.html">Events</a>
+							<a class="nav-link" href="events.php">Events</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="schedule.html">Schedule</a>
@@ -81,10 +84,22 @@
 					<!-- <h2 class="text-center">Event List</h2>
 					<p class="text-center text-muted mb-4">A list of events near you</p> -->
 
+					<?php
+					$sql = "SELECT eventid, ename, location, eventdate, starttime FROM events";
+					$resultset = mysqli_query($conn, $sql) or die("Database error:" . mysqli_error($conn));
+
+					while($record = mysqli_fetch_assoc($resultset)) {
+					?>
+
 					<div class="card text-center mx-auto mb-4" style="max-width: 23rem;">
 						<div class="card-body">
-							<h5 class="card-title">Event</h5>
+							<div class="card-title">
+								<a href="#"><?php echo $record['ename']; ?></a>
+							</div>
 							<p class="card-text">Description of event</p>
+							<div class="card-text"><?php echo $record['location']; ?></div>
+							<div class="card-text"><?php echo $record['eventdate']; ?></div>
+							<div class="card-text"><?php echo $record['starttime']; ?></div>
 							<a href="#" class="btn btn-primary">More details</a>
 						</div>
 						<div class="card-footer text-muted">
@@ -113,7 +128,7 @@
 							Found 2 days ago
 						</div>
 					</div>
-
+					<?php } ?>
 				</div>
 			</div>
 		</div>

@@ -4,9 +4,11 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
-
+		
 
     	 $eventid = $_POST['eventid'];
+	
+	 $ename = $_POST['ename'];
 
 	 $attenddate = $_POST['attenddate'];
 
@@ -22,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-function insertReviewInputIntoDB($eventid,$attenddate,$length,$review){
+function insertReviewInputIntoDB($eventid,$ename,$attenddate,$length,$review){
 	//connect to your database. Type in your username, password and the DB path
 	$conn= mysql_connect('localhost','root', 'password');
   if (!$conn) {
@@ -35,7 +37,7 @@ function insertReviewInputIntoDB($eventid,$attenddate,$length,$review){
         die('Can \'t use ' . 'planner' . ':' . mysql_error());
   }
 
-	$sql =  "INSERT INTO Review(eventid,attenddate,length,review) values($eventid,$attenddate,$length,$review)");
+	$sql =  "INSERT INTO Review(eventid,ename,attenddate,length,review) values($eventid,$ename,$attenddate,$length,$review)");
 
 
 

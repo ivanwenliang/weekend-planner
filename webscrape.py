@@ -84,7 +84,7 @@ def pullTextFromTag(container,html_tag,html_class):
 
 def populateEventDb(event_info_dict,database):
 	mycursor = database.cursor()
-	sqlFormula = "INSERT INTO events (ename,location,eventdate,starttime) VALUES (%s,%s,%s,%s,%s,%s)"
+	sqlFormula = "INSERT INTO events (ename,location,eventdate,starttime,edesc) VALUES (%s,%s,%s,%s,%s,%s)"
 	event_info = (event_info_dict["event_id"],event_info_dict["event_name"],event_info_dict["event_location"],
 		event_info_dict["event_date"],event_info_dict["event_time"],event_info_dict['event_desc'])
 
