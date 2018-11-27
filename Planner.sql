@@ -15,5 +15,5 @@ FOREIGN KEY (uemail) REFERENCES User (uemail) );
 -- PRIMARY KEY (userid,friendid),
 -- FOREIGN KEY (userid) REFERENCES User (userid),
 -- FOREIGN KEY (friendid) REFERENCES User (userid));
-CREATE TABLE Review (eventid INT, review varchar(500),ename varchar(100), attenddate date, rating INT,PRIMARY KEY(review,attenddate),
+CREATE TABLE Review (eventid INT, review varchar(500),ename varchar(100), attenddate varchar(20), rating INT,PRIMARY KEY(review,attenddate),
 FOREIGN KEY fk_events (eventid) REFERENCES Events (eventid));
