@@ -4,7 +4,6 @@ import mysql.connector
 
 #region
 #global variables
-
 event_tag_classes = {'event_name' : {"class": "card-text--truncated__three"},
                      'event_month' : {"class": "date-thumbnail__month"},
                      'event_day' : {"class": "date-thumbnail__day"},
@@ -29,7 +28,7 @@ def main():
 
 def scrapeEventList(url,database):
 
-	#opens a conenction and grabs the webpage
+	#opens a conenction and downlaods the html code
 	uClient = uReq(url)
 	page_html = uClient.read()
 	uClient.close()
@@ -65,7 +64,7 @@ def scrapeEventList(url,database):
 		event_info_dict["event_id"] = event_id_counter
 		event_id_counter += 1
 
-		populateEventDb(event_info_dict,database)
+		populateEventDb(database)
 		event_info_dict.clear
 
 def scrapeEventDesc(container):
@@ -82,9 +81,9 @@ def pullTextFromTag(container,html_tag,html_class):
 	else:
 		return 
 
-def populateEventDb(event_info_dict,database):
+def populateEventDb(database):
 	mycursor = database.cursor()
-	sqlFormula = "INSERT INTO events (ename,location,eventdate,starttime,edesc) VALUES (%s,%s,%s,%s,%s,%s)"
+	sqlFormula = "INSERT INTO events (eventid,ename,location,eventdate,starttime,edesc) VALUES (%s,%s,%s,%s,%s,%s)"
 	event_info = (event_info_dict["event_id"],event_info_dict["event_name"],event_info_dict["event_location"],
 		event_info_dict["event_date"],event_info_dict["event_time"],event_info_dict['event_desc'])
 
