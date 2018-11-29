@@ -21,7 +21,6 @@
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
 		<!-- Link to stylesheet -->
-		<link href="style.css" rel="stylesheet">
 		<link href="css/clean-blog.css" rel="stylesheet">
 	</head>
 
@@ -73,11 +72,8 @@
 
 		<!-- Below Navbar -->
 		<div class="container" style="margin-top:30px">
-			<!-- <div class="row justify-content-center"> -->
 
-
-
-				<div class="col-sm-12 border" style="height: 400px; overflow-y: scroll;">
+				<div class="col-sm-12 border mx-auto" style="max-width: 50rem; height: 400px; overflow-y: scroll;">
 					<!-- <h2 class="text-center">Event List</h2>
 					<p class="text-center text-muted mb-4">A list of events near you</p> -->
 
@@ -95,7 +91,7 @@
 
 					$conn = new mysqli($servername, $username, $password, $dbname);
 					
-					$sql = "SELECT eventid, ename, location, eventdate FROM events";
+					$sql = "SELECT * FROM events";
 
 					if (mysqli_query($conn, $sql)) {
 
@@ -115,15 +111,19 @@
 					<div class="card text-center mx-auto mb-4" style="max-width: 25rem; height: 350px;">
 						<div class="card-body events">
 							<h5 class="card-title"><?php echo $record['ename']; ?></h5>
-							<p class="card-text">Description of event</p>
 							<div class="card-text"><?php echo $record['location']; ?></div>
 							<div class="card-text"><?php echo $record['eventdate']; ?></div>
-							<a href="#" class="btn btn-primary">More details</a>
+							<div class="card-text"><?php echo $record['starttime']; ?></div>
+							<a href="<?php echo $record['edesc']; ?>" class="btn btn-primary" role="button">More Details</a>
+
+							<!-- <button type="button" class='btn btn-primary' data-toggle='modal' data-id='<?php echo $record['eventid']; ?>' data-target='#myModal'>More details</button> -->
 						</div>
 						<!-- <div class="card-footer text-muted">
 							Found 2 hours ago
 						</div> -->
 					</div>
+
+					
 
 					<!-- <div class="card text-center mx-auto mb-4" style="max-width: 23rem;">
 						<div class="card-body">
@@ -147,8 +147,49 @@
 						</div>
 					</div> -->
 					<?php } ?>
+
+					
+					
 				</div>
-			<!-- </div> -->
+			
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				      </div>
+				      <div class="modal-body">
+				      	<div class="table-responsive">
+				      		<table class="table table-bordered">
+      							<tr>  
+      			                     <td width="30%"><label>Event Name</label></td>  
+      			                     <td width="70%"><?php echo $row["ename"]; ?></td>  
+      			                </tr>  
+      			                <tr>  
+      			                     <td width="30%"><label>Location</label></td>  
+      			                     <td width="70%"><?php echo $row["location"]; ?></td>  
+      			                </tr>  
+      			                <tr>  
+      			                     <td width="30%"><label>Event Date</label></td>  
+      			                     <td width="70%"><?php echo $row["eventdate"]; ?></td>  
+      			                </tr>  
+      			                <tr>  
+      			                     <td width="30%"><label>Start Time</label></td>  
+      			                     <td width="70%"><?php echo $row["starttime"]; ?></td>  
+      			                </tr> 
+				      		</table>
+				      	</div>
+					  </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        <button type="button" class="btn btn-primary">Save changes</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+
 		</div>
 
 		<!-- Footer -->
@@ -196,6 +237,23 @@
 
 		<!-- Extra scripts -->
 		<script src="js/clean-blog.min.js"></script>
+
+		<script>
+			$(document).ready(function(){
+			    $('#myModal').on('show.bs.modal', function (e) {
+			        var rowid = $(this).attr("data-id");
+			        $.ajax({
+			            url: 'select.php', //Here you will fetch records 
+			            method: 'post',
+			            data:  'id='+ rowid, //Pass $id
+			            success: function(data){
+			            	$('.modal-body').html(data);//Show fetched data from database
+			            	$('#myModal').modal("show");
+			            }
+			        });
+			     });
+			});
+		</script>
 
 	</body>
 </html>
