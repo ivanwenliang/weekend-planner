@@ -17,7 +17,7 @@ event_info_dict = {}
 
 def main():
 
-    mydb = mysql.connector.connect(host='127.0.0.1', user='root', password='gosantaclara', database='planner')
+    mydb = mysql.connector.connect(host='127.0.0.1', user='root', password='IbgrwAttn,mwa.11SQL', database='planner')
     mydb.autocommit = True
 
     url ='https://www.eventbrite.com/d/ca--san-jose/events/'

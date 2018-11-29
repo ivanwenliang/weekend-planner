@@ -43,9 +43,6 @@
 						<li class="nav-item">
 							<a class="nav-link" href="schedule.html">Schedule</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="Search.html">Search</a>
-						</li>
 					</ul>	
 					<ul class="navbar-nav">
 						<li class="nav-item">
@@ -80,7 +77,7 @@
 
 
 
-				<div class="col-sm-12" style="height: 400px; overflow-y: scroll;">
+				<div class="col-sm-12 border" style="height: 400px; overflow-y: scroll;">
 					<!-- <h2 class="text-center">Event List</h2>
 					<p class="text-center text-muted mb-4">A list of events near you</p> -->
 
@@ -90,7 +87,7 @@
 
 					$username = "root";
 
-					$password = "";
+					$password = "IbgrwAttn,mwa.11SQL";
 
 					$dbname = "planner";
 
@@ -115,7 +112,7 @@
 					while($record = mysqli_fetch_assoc($resultset)) {
 					?>
 
-					<div class="card text-center mx-auto mb-4" style="max-width: 23rem; height: 350px;">
+					<div class="card text-center mx-auto mb-4" style="max-width: 25rem; height: 350px;">
 						<div class="card-body events">
 							<h5 class="card-title"><?php echo $record['ename']; ?></h5>
 							<p class="card-text">Description of event</p>
