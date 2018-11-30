@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 		
 
-    	 $eventid = $_POST['eventid'];
+     $eventid = $_POST['eventid'];
 	
 	 $ename = $_POST['ename'];
 
@@ -19,33 +19,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-	insertReviewInputIntoDB($eventid,$attenddate,$length,$review);
+	insertReviewInputIntoDB($eventid,$ename,$attenddate,$length,$review);
 
 
 }
 
 function insertReviewInputIntoDB($eventid,$ename,$attenddate,$length,$review){
 	//connect to your database. Type in your username, password and the DB path
-	$conn= mysql_connect('localhost','root', 'password');
+	$conn= mysqli_connect('127.0.0.1','root', 'IbgrwAttn,mwa.11SQL', 'planner');
   if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
   }
 
-  $db_selected = mysql_select_db('planner',$conn);
+  // $db_selected = mysqli_select_db('planner',$conn);
 
-  if (!$db_selected) {
-        die('Can \'t use ' . 'planner' . ':' . mysql_error());
-  }
+  // if (!$db_selected) {
+  //       die('Can \'t use ' . 'planner' . ':' . mysqli_error());
+  // }
 
-	$sql =  "INSERT INTO Review(eventid,ename,attenddate,length,review) values($eventid,$ename,$attenddate,$length,$review)");
+	$sql =  "INSERT INTO Review(eventid,review,ename,attenddate,rating) values('$eventid','$review','$ename','$attenddate','$length')";
 
 
 
 	// Execute the query
-if (!mysql_query($sql)){
-    die('Error: ' . mysql_error());
+if (!mysqli_query($sql)){
+    die('Error: ' . mysqli_error());
 }
-	mysql_close($conn);
+	mysqli_close($conn);
 }
 
 ?>

@@ -7,10 +7,10 @@ SELECT 'CREATING DATABASE STRUCTURE' as 'INFO';
 DROP TABLE IF EXISTS Events, User, Goingto, Friends, Review;
               
 CREATE TABLE Events (eventid INT, ename varchar(100), location varchar(100), eventdate varchar(50), starttime varchar(20), edesc varchar(300), PRIMARY KEY(eventid));
-CREATE TABLE User (uemail varchar(100), fname varchar(20), lname varchar(20), PRIMARY KEY(uemail));
-CREATE TABLE Goingto (eventid INT, uemail varchar(100), goingdate date, PRIMARY KEY(eventid,uemail),
-FOREIGN KEY (eventid) REFERENCES Events (eventid),
-FOREIGN KEY (uemail) REFERENCES User (uemail) );
+CREATE TABLE User (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, username varchar(50) NOT NULL UNIQUE, password varchar(255) NOT NULL);
+-- CREATE TABLE Goingto (eventid INT, uemail varchar(100), goingdate date, PRIMARY KEY(eventid,uemail),
+-- FOREIGN KEY (eventid) REFERENCES Events (eventid),
+-- FOREIGN KEY (uemail) REFERENCES User (uemail) );
 -- CREATE TABLE Friends (userid INT,friendid INT(10),
 -- PRIMARY KEY (userid,friendid),
 -- FOREIGN KEY (userid) REFERENCES User (userid),
