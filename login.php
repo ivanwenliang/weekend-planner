@@ -20,7 +20,7 @@ $dbname = "planner";
 
 // Create connection
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$link = new mysqli($servername, $username, $password, $dbname);
 
 // Define variables and initialize with empty values
 $username = $password = "";
