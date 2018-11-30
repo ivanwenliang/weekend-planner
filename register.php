@@ -56,16 +56,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $confirm_password_err = "Password did not match.";
         }
     }
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];	
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         // Prepare an insert statement
-        $sql = "INSERT INTO User (username, password) VALUES ('$username', '$password')";
+        $sql = "INSERT INTO User (username, password, firstname, lastname) VALUES ('$username', '$password', '$firstname', '$lastname')";
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password, $param_firstname, $param_lastname);
             // Set parameters
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+	    $param_firstname = $firstname;
+	    $param_lastname = $lastname;	
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
@@ -175,6 +179,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
+	    <div class="form-group>
+                <label>First Name</label>
+                <input type="text" name="firstname" class="form-control" value="<?php echo $firstname; ?>">
+	    </div>
+	    <div class="form-group>
+                <label>Last Name</label>
+                <input type="text" name="lastname" class="form-control" value="<?php echo $lastname; ?>">
+            </div>											  
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit">
                 <input type="reset" class="btn btn-default" value="Reset">
