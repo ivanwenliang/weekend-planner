@@ -1,49 +1,42 @@
-<?php
+<?php  //Start the Session
 session_start();
-// Change this to your connection info.
-// Include config file
 $servername = "127.0.0.1";
 $username = "root";
 $password = "IbgrwAttn,mwa.11SQL";
 $dbname = "planner";
 // Create connection
 $link = new mysqli($servername, $username, $password, $dbname);
-if ( mysqli_connect_errno() ) {
-	// If there is an error with the connection, stop the script and display the error.
-	die ('Failed to connect to MySQL: ' . mysqli_connect_error());
+
+//3. If the form is submitted or not.
+//3.1 If the form is submitted
+if (isset($_POST['username']) and isset($_POST['password'])){
+//3.1.1 Assigning posted values to variables.
+$username = $_POST['username'];
+$password = $_POST['password'];
+//3.1.2 Checking the values are existing in the database or not
+$query = "SELECT * FROM User WHERE username='$username' and password='$password'";
+
+$result = mysqli_query($link, $query) or die(mysqli_error($connection));
+$count = mysqli_num_rows($result);
+//3.1.2 If the posted values are equal to the database values, then session will be created for the user.
+if ($count == 1){
+$_SESSION['username'] = $username;
+}else{
+//3.1.3 If the login credentials doesn't match, he will be shown with an error message.
+$fmsg = "Invalid Login Credentials.";
 }
-// Now we check if the data was submitted, isset will check if the data exists.
-if ( !isset($_POST['username'], $_POST['password']) ) {
-	// Could not get the data that should have been sent.
-	die ('Username and/or password does not exist!');
 }
-// Prepare our SQL
-if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
-	// Bind parameters (s = string, i = int, b = blob, etc), hash the password using the PHP password_hash function.
-	$stmt->bind_param('s', $_POST['username']);
-	$stmt->execute();
-	$stmt->store_result();
-	// Store the result so we can check if the account exists in the database.
-	if ($stmt->num_rows > 0) {
-		$stmt->bind_result($id, $password);
-		$stmt->fetch();
-		// Account exists, now we verify the password.
-		if (password_verify($_POST['password'], $password)) {
-			// Verification success! User has loggedin!
-			$_SESSION['loggedin'] = TRUE;
-			$_SESSION['name'] = $_POST['username'];
-			$_SESSION['id'] = $id;
-			 header("location: welcome.php");
-		} else {
-			echo 'Incorrect username and/or password!';
-		}
-	} else {
-		echo 'Incorrect username and/or password!';
-	}
-	$stmt->close();
-} else {
-	echo 'Could not prepare statement!';
-}
+//3.1.4 if the user is logged in Greets the user with message
+if (isset($_SESSION['username'])){
+$username = $_SESSION['username'];
+echo "Hi " . $username . "
+";
+echo "This is the Members Area
+";
+echo "<a href='logout.php'>Logout</a>";
+
+}else{
+//3.2 When the user visits the page first time, simple login form will be displayed.
 ?>
 <!DOCTYPE html>
 <html lang="en">
