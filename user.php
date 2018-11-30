@@ -49,7 +49,7 @@
 					</ul>	
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a class="nav-link" href="user.html">User</a>
+							<a class="nav-link" href="user.php">User</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="login.php">Login</a>
@@ -76,21 +76,67 @@
 
 		<!-- Below Navbar -->
 		<div class="container" style="margin-top:30px">
-			<div class="row justify-content-center">
-				<div class="col-sm-12">
-					<!-- <h2 class="text-center">User Profile</h2>
-					<p class="text-center text-muted">User Information and Settings</p> -->
-				</div>
-			</div>
-
 			<div class="row">
-				<div class="col-sm-6">
-					<h3 class="text-center">Settings</h3>
+				<div class="col-sm-12 mx-auto" style="max-width: 700px;">
+					<h2 class="text-center mb-4">User Information</h2>
+					<?php 
 
-				</div>
+					$servername = "127.0.0.1";
 
-				<div class="col-sm-6">
-					<h3 class="text-center">Information</h3>
+					$username = "root";
+
+					$password = "IbgrwAttn,mwa.11SQL";
+
+					$dbname = "planner";
+
+					// Create connection
+					$conn = new mysqli($servername, $username, $password, $dbname);
+					// $sql = "SELECT * FROM user WHERE id='1'";
+					// $result = mysqli_query($conn,$sql);
+					//while($row = mysqli_fetch_assoc($result)) {
+					//
+					
+					$sql = "SELECT * FROM user WHERE id='1'";
+					$result = mysqli_query($conn,$sql);
+
+					if ($result->num_rows > 0) {
+						while($row = mysqli_fetch_assoc($result)) {
+							echo "<h5 class='font-weight-bold d-inline-block'>Username:</h5>" ."\t" .$row['username']. "<br>";
+							echo "<h5 class='font-weight-bold d-inline-block'>First Name:</h5>" ."\t" .$row['firstname']. "<br>";
+							echo "<h5 class='font-weight-bold d-inline-block'>Last Name:</h5>" ."\t" .$row['lastname']. "<br>";
+						}
+					}
+					$conn->close();
+					?>
+					
+					<h2 class="text-center mt-4 mb-4">Recently Reviewed Events</h2>
+
+					<?php 
+
+					$servername = "127.0.0.1";
+
+					$username = "root";
+
+					$password = "IbgrwAttn,mwa.11SQL";
+
+					$dbname = "planner";
+
+					// Create connection
+					$conn = new mysqli($servername, $username, $password, $dbname);
+					$sql2 = "SELECT * FROM review LIMIT 1";
+					$result = mysqli_query($conn,$sql2);
+
+					if ($result->num_rows > 0) {
+						while($row = mysqli_fetch_assoc($result)) {
+							echo "<h5 class='font-weight-bold d-inline-block'>Event Name:</h5>" ."\t" .$row['ename']. "<br>";
+							echo "<h5 class='font-weight-bold d-inline-block'>Rating:</h5>" ."\t" .$row['rating']. "<br>";
+							echo "<h5 class='font-weight-bold d-inline-block'>Review:</h5>" ."\t" .$row['review']. "<br>";
+						}
+					}
+					$conn->close();
+					?>
+
+					
 				</div>
 			</div>
 		</div>

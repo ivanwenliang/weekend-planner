@@ -48,7 +48,7 @@
 					</ul>	
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a class="nav-link" href="user.html">User</a>
+							<a class="nav-link" href="user.php">User</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="login.php">Login</a>
@@ -65,8 +65,8 @@
 		    <div class="row">
 		      <div class="col-lg-8 col-md-10 mx-auto">
 		        <div class="page-heading">
-		          <h1>Events</h1>
-		          <span class="subheading">A List of Events Near You</span>
+		          <h1>Schedule</h1>
+		          <span class="subheading">Stay Organized</span>
 		        </div>
 		      </div>
 		    </div>
@@ -94,7 +94,7 @@
 
 					$conn = new mysqli($servername, $username, $password, $dbname);
 					
-					$sql = "SELECT * FROM events";
+					$sql = "SELECT * FROM events WHERE eventid IN (SELECT eventid FROM goingto)";
 
 					if (mysqli_query($conn, $sql)) {
 

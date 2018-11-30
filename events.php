@@ -48,7 +48,7 @@
 					</ul>	
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a class="nav-link" href="user.html">User</a>
+							<a class="nav-link" href="user.php">User</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="login.php">Login</a>
