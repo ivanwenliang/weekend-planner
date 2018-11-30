@@ -172,7 +172,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 							<a class="nav-link" href="events.php">Events</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="schedule.html">Schedule</a>
+							<a class="nav-link" href="schedule.php">Schedule</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="Reviewinputform.html">Reviews</a>
 						</li>
 					</ul>
 					<ul class="navbar-nav">
