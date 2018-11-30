@@ -179,11 +179,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
-	    <div class="form-group>
+	    <div class="form-group">
                 <label>First Name</label>
                 <input type="text" name="firstname" class="form-control" value="<?php echo $firstname; ?>">
 	    </div>
-	    <div class="form-group>
+	    <div class="form-group">
                 <label>Last Name</label>
                 <input type="text" name="lastname" class="form-control" value="<?php echo $lastname; ?>">
             </div>											  
