@@ -1,51 +1,28 @@
-
 <?php
+/* Attempt MySQL server connection. Assuming you are running MySQL
+server with default setting (user 'root' with no password) */
+$link = mysqli_connect("127.0.0.1", "root", "IbgrwAttn,mwa.11SQL", "planner");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-
-		
-
-     $eventid = $_POST['eventid'];
-	
-	 $ename = $_POST['ename'];
-
-	 $attenddate = $_POST['attenddate'];
-
-	 $length = $_POST['length'];
-
-	 $review = $_POST['review'];
-
-
-
-
-	insertReviewInputIntoDB($eventid,$ename,$attenddate,$length,$review);
-
-
+// Check connection
+if($link === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-function insertReviewInputIntoDB($eventid,$ename,$attenddate,$length,$review){
-	//connect to your database. Type in your username, password and the DB path
-	$conn= mysqli_connect('127.0.0.1','root', 'IbgrwAttn,mwa.11SQL', 'planner');
-  if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-  }
+// Escape user inputs for security
+$eventid = mysqli_real_escape_string($link, $_REQUEST['eventid']);
+$review = mysqli_real_escape_string($link, $_REQUEST['review']);
+$ename = mysqli_real_escape_string($link, $_REQUEST['ename']);
+$attenddate = mysqli_real_escape_string($link, $_REQUEST['attenddate']);
+$rating = mysqli_real_escape_string($link, $_REQUEST['length']);
 
-  // $db_selected = mysqli_select_db('planner',$conn);
-
-  // if (!$db_selected) {
-  //       die('Can \'t use ' . 'planner' . ':' . mysqli_error());
-  // }
-
-	$sql =  "INSERT INTO Review(eventid,review,ename,attenddate,rating) values('$eventid','$review','$ename','$attenddate','$length')";
-
-
-
-	// Execute the query
-if (!mysqli_query($sql)){
-    die('Error: ' . mysqli_error());
-}
-	mysqli_close($conn);
+// Attempt insert query execution
+$sql = "INSERT INTO Review (eventid, review, ename, attenddate, rating) VALUES ('$eventid', '$review', '$ename', '$attenddate', '$rating')";
+if(mysqli_query($link, $sql)){
+    echo "Records added successfully.";
+} else{
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 }
 
+// Close connection
+mysqli_close($link);
 ?>
