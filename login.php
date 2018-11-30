@@ -13,50 +13,78 @@ $password = "IbgrwAttn,mwa.11SQL";
 $dbname = "planner";
 // Create connection
 $link = new mysqli($servername, $username, $password, $dbname);
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+   // username and password sent from form 
+   
+   $username = mysqli_real_escape_string($link,$_POST['username']);
+   $password = mysqli_real_escape_string($link,$_POST['password']); 
+   
+   $sql = "SELECT id, username FROM User WHERE username = '$username' and password = '$password'";
+   $result = mysqli_query($link,$sql);
+   $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+   $active = $row['active'];
+   
+   $count = mysqli_num_rows($result);
+   
+
+ 
+   if($count == 1) {
+      session_register("username");
+      // $_SESSION['login_user'] = $myusername;
+      $_SESSION["loggedin"] = true;
+      $_SESSION["id"] = $id;
+      $_SESSION["username"] = $username;
+      
+      header("location: welcome.php");
+   }else {
+      $error = "Your Login Name or Password is invalid";
+   }
+}
 // Define variables and initialize with empty values
-$username = $password = "";
-$username_err = $password_err = "";
-// Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    // Check if username is empty
-    if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter username.";
-    } else{
-        $username = trim($_POST["username"]);
-    }
-    // Check if password is empty
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter your password.";
-    } else{
-        $password = trim($_POST["password"]);
-    }
-    // Validate credentials
-    if(empty($username_err) && empty($password_err)){
-        // Prepare a select statement
-        $sql = "SELECT * FROM users WHERE username = '$username'";
-        $result = mysql_query($link, $sql);
-        $resultCheck = mysqli_num_rows($result);
-        if ($resultCheck < 1) {
-           header("location: ../login.php?login=error");
-          exit();
-        }
-        else {
-          if ($row = mysqli_fetch_assoc($result)){
-            $passwordcheck = password_verify($password, $row['password']);
-            if ($passwordcheck == false) {
-               header("location: ../login.php?login=error");
-               exit();
-            }elseif ($passwordcheck == true){
-              session_start();
-              // Store data in session variables
-              $_SESSION["loggedin"] = true;
-              $_SESSION["id"] = $id;
-              $_SESSION["username"] = $username;
-              // Redirect user to welcome page
-              header("location: welcome.php");
-            }
-          }
-        }
+// $username = $password = "";
+// $username_err = $password_err = "";
+// // Processing form data when form is submitted
+// if($_SERVER["REQUEST_METHOD"] == "POST"){
+//     // Check if username is empty
+//     if(empty(trim($_POST["username"]))){
+//         $username_err = "Please enter username.";
+//     } else{
+//         $username = trim($_POST["username"]);
+//     }
+//     // Check if password is empty
+//     if(empty(trim($_POST["password"]))){
+//         $password_err = "Please enter your password.";
+//     } else{
+//         $password = trim($_POST["password"]);
+//     }
+//     // Validate credentials
+//     if(empty($username_err) && empty($password_err)){
+//         // Prepare a select statement
+//         $sql = "SELECT * FROM users WHERE username = '$username'";
+//         $result = mysql_query($link, $sql);
+//         $resultCheck = mysqli_num_rows($result);
+//         if ($resultCheck < 1) {
+//            header("location: ../login.php?login=error");
+//           exit();
+//         }
+//         else {
+//           if ($row = mysqli_fetch_assoc($result)){
+//             $passwordcheck = password_verify($password, $row['password']);
+//             if ($passwordcheck == false) {
+//                header("location: ../login.php?login=error");
+//                exit();
+//             }elseif ($passwordcheck == true){
+//               session_start();
+//               // Store data in session variables
+//               $_SESSION["loggedin"] = true;
+//               $_SESSION["id"] = $id;
+//               $_SESSION["username"] = $username;
+//               // Redirect user to welcome page
+//               header("location: welcome.php");
+//             }
+//           }
+//         }
         // if($stmt = mysqli_prepare($link, $sql)){
         //     // Bind variables to the prepared statement as parameters
         //     mysqli_stmt_bind_param($stmt, "s", $param_username);
