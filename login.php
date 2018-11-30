@@ -40,6 +40,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
    }else {
       $error = "Your Login Name or Password is invalid";
    }
+	mysqli_close($link);
 }
 // Define variables and initialize with empty values
 // $username = $password = "";
@@ -123,10 +124,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         // }
         // Close statement
         // mysqli_stmt_close($stmt);
-    }
+//     }
     // Close connection
-    mysqli_close($link);
-}
+   
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
