@@ -15,7 +15,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["username"]))){
         $username_err = "Please enter a username.";
     } else{
-        $username = trim($_POST["username"])
+        $username = trim($_POST["username"]);
         // // Prepare a select statement
         // $sql = "SELECT id FROM users WHERE username = ?";
         // if($stmt = mysqli_prepare($link, $sql)){
