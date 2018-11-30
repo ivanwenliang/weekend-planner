@@ -42,6 +42,9 @@
 						<li class="nav-item">
 							<a class="nav-link" href="schedule.php">Schedule</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="Reviewinputform.html">Reviews</a>
+						</li>
 					</ul>	
 					<ul class="navbar-nav">
 						<li class="nav-item">
