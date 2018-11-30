@@ -40,7 +40,7 @@
 							<a class="nav-link" href="events.php">Events</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="schedule.html">Schedule</a>
+							<a class="nav-link" href="schedule.php">Schedule</a>
 						</li>
 					</ul>	
 					<ul class="navbar-nav">
@@ -48,7 +48,7 @@
 							<a class="nav-link" href="user.html">User</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="login.html">Login</a>
+							<a class="nav-link" href="login.php">Login</a>
 						</li>
 					</ul>
 				</div>	
